@@ -1,85 +1,175 @@
 package ec.action;
 
-import java.util.Date;
-
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-import java.util.List;
 
-import org.seasar.extension.jdbc.JdbcManager;
-import org.seasar.extension.jdbc.where.SimpleWhere;
-
+import ec.cmn.util.CmnUtil;
+import ec.cmn.util.CmnUtilDebug;
 import ec.entity.Usr;
-import ec.service.UsrService;
 import ec.form.UsrForm;
+import ec.form.UsrFormItem;
+import ec.service.UsrService;
 
-public class UsrAction {
+/**
+ * <DL>
+ * <DD>＜クラス名称＞</DD>
+ * <DD>ユーザ情報アクション</DD>
+ * </DL>
+ */
+public class UsrAction extends AbAction {
 
+    /**
+     * クラス名称
+     */
+    private static final String CLASS = UsrAction.class.getSimpleName();
 
-    public List<Usr> usrItems;
-    
+    /**
+     * フォーム
+     */
     @ActionForm
     @Resource
     protected UsrForm usrForm;
 
+    /**
+     * サービス
+     */
     @Resource
     protected UsrService usrService;
 
-    public JdbcManager jdbcManager;
-
-    @Execute(validator = false)
+    /**
+     * インデックス
+     * 
+     * @return インデックスページ
+     */
+    @Execute( validator = false )
     public String index() {
-        usrItems = usrService.findAll();
 
-        return "list.jsp";
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".index" );
+        }
+
+        return list();
     }
 
+    /**
+     * 一覧画面を表示する.
+     * 
+     * @return　一覧画面
+     */
+    @Execute( validator = false, urlPattern = "list/" )
+    public String list() {
 
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".list" );
+        }
 
+        try {
 
+            List<Usr> entityList = usrService.selectAll( "userId", "DESC" );
+            usrForm.usrFormItemList = CmnUtil.getCopyList( UsrFormItem.class,
+                    entityList );
 
-    @Execute(validator = false, urlPattern = "show/{usrId}")
-    public String show() {
-        Usr entity = usrService.findById(usrForm.usrId);
-        Beans.copy(entity, usrForm).dateConverter("yyyy-MM-dd").execute();
-        return "show.jsp";
+        } catch ( Exception e ) {
+            if ( CmnUtilDebug.DEBUG_FLG == true ) {
+                CmnUtilDebug.outputDebug( CLASS + ".list : DBエラー" );
+            }
+        }
+
+        return LIST;
     }
 
-    @Execute(validator = false, urlPattern = "edit/{usrId}")
-    public String edit() {
-        Usr entity = usrService.findById(usrForm.usrId);
-        Beans.copy(entity, usrForm).dateConverter("yyyy-MM-dd").execute();
-        return "edit.jsp";
+    /**
+     * 詳細画面を表示する.
+     * 
+     * @return　詳細画面
+     */
+    @Execute( validator = false, urlPattern = "detail/{usrFormItem.usrId}" )
+    public String detail() {
+
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".detail" );
+        }
+
+        try {
+
+            Usr entity = usrService.selectById( usrForm.usrFormItem.usrId );
+            usrForm.usrFormItem = CmnUtil.getCopy( UsrFormItem.class, entity );
+
+        } catch ( Exception e ) {
+            if ( CmnUtilDebug.DEBUG_FLG == true ) {
+                CmnUtilDebug.outputDebug( CLASS + ".detail : 例外", e );
+            }
+        }
+
+        return DTL;
     }
 
-    @Execute(validator = false)
-    public String create() {
-        return "create.jsp";
+    /**
+     * 登録(追加・編集)編集画面を表示する.
+     * 
+     * @return　登録(追加・編集)編集画面
+     */
+    @Execute( validator = false, urlPattern = "registEdt/{usrId}" )
+    public String registEdt() {
+
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".registEdt" );
+        }
+
+        return REGIST_EDT;
     }
 
-    @Execute(validator = false, urlPattern = "delete/{usrId}", redirect = true)
+    /**
+     * 登録(追加・編集)確認画面を表示する.
+     * 
+     * @return　登録(追加・編集)確認画面
+     */
+    @Execute( validator = false, urlPattern = "registCfm/{usrId}" )
+    public String registCfm() {
+
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".registCfm" );
+        }
+
+        return REGIST_CFM;
+    }
+
+    /**
+     * 登録(追加・編集)を実行する.
+     * 
+     * @return　一覧画面
+     */
+    @Execute( validator = false, urlPattern = "registExe/{usrId}", redirect = true )
+    public String registExe() {
+
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".registExe" );
+        }
+
+        return list();
+    }
+
+    /**
+     * 削除画面を実行する.
+     * 
+     * @return　一覧画面
+     */
+    @Execute( validator = false, urlPattern = "delete/{usrId}", redirect = true )
     public String delete() {
-        Usr entity = Beans.createAndCopy(Usr.class, usrForm).dateConverter("yyyy-MM-dd").execute();
-        usrService.delete(entity);
-        return "/usr/";
-    }
 
-    @Execute(input = "create.jsp", redirect = true)
-    public String insert() {
-        Usr entity = Beans.createAndCopy(Usr.class, usrForm).dateConverter("yyyy-MM-dd").execute();
-        usrService.insert(entity);
-        return "/usr/";
-    }
+        if ( CmnUtilDebug.DEBUG_FLG == true ) {
+            CmnUtilDebug.outputDebug( CLASS + ".delete" );
+        }
 
-    @Execute(input = "edit.jsp", redirect = true)
-    public String update() {
-        Usr entity = Beans.createAndCopy(Usr.class, usrForm).dateConverter("yyyy-MM-dd").execute();
-        usrService.update(entity);
-        return "/usr/";
+        Usr entity = Beans.createAndCopy( Usr.class, usrForm )
+                .dateConverter( "yyyy-MM-dd" ).execute();
+        usrService.delete( entity );
+
+        return list();
     }
 }

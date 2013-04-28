@@ -1,24 +1,24 @@
 package ec.form;
 
-
-import java.util.Date;
-
+import java.util.ArrayList;
 import java.util.List;
-import ec.entity.Usr;
 
+/**
+ * <DL>
+ * <DD>＜クラス名称＞</DD>
+ * <DD>ユーザ情報フォーム</DD>
+ * </DL>
+ */
 public class UsrForm {
-	
-	public String usrId = "";
 
-	public String usrName = "";
+    /**
+     * ユーザ情報フォーム項目
+     */
+    public UsrFormItem usrFormItem = new UsrFormItem();
 
-	public String usrPwd = "";
-
-	public String updUserId = "";
-
-	public String delFlg = "";
-
-	public String updDate = "";
-
+    /**
+     * ユーザ情報フォーム項目リスト
+     */
+    public List<UsrFormItem> usrFormItemList = new ArrayList<UsrFormItem>();
 
 }

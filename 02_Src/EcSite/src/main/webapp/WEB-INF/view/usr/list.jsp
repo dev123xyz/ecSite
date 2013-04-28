@@ -1,50 +1,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="${f:url('/css/global.css')}"/>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ユーザ情報一覧</title>
+    <link rel="stylesheet" type="text/css" href="${f:url('/css/global.css')}"/>
 </head>
 <body>
 
+<h1>ユーザ情報一覧</h1>
+
 <html:errors/>
 
+<table style="border:0px; background-color:#000000;" cellpadding='5px' cellspacing="1px" >
 
-<table border="1">
+<!-- ユーザ情報ヘッダ -->
 <tr style="background-color:pink">
-
-	<th>usrName</th>
-	<th>usrPwd</th>
-	<th>updUserId</th>
-	<th>delFlg</th>
-	<th>updDate</th>
-<th></th><th></th><th></th>
+	<th>ユーザID</th>
+	<th>ユーザ名称</th>
+	<th>ユーザPWD</th>
+	<th>削除</th>
+	<th></th>
+	<th></th>
+	<th></th>
 </tr>
 
-<c:forEach var="e" varStatus="s" items="${usrItems}">
+<!-- ユーザ情報ボディ -->
+<c:forEach var="e" varStatus="s" items="${usrFormItemList}">
 	<tr style="background-color:${s.index %2 == 0 ? 'white' : 'aqua'}">
-		<td>
-			${f:h(e.usrName)}
-		</td>
-		<td>
-			${f:h(e.usrPwd)}
-		</td>
-		<td>
-			${f:h(e.updUserId)}
-		</td>
-		<td>
-			${f:h(e.delFlg)}
-		</td>
-		<td>
-			${f:h(e.updDate)}
-		</td>
-		<td><s:link href="show/${e.usrId}"> show </s:link></td>
-		<td><s:link href="edit/${e.usrId}"> edit </s:link></td>
-		<td><s:link onclick="return confirm('delete OK?');" href="delete/${e.usrId}">delete</s:link></td>
+		<td>${f:h(e.usrId)}</td>
+		<td>${f:h(e.usrName)}</td>
+		<td>${f:h(e.usrPwd)}</td>
+		<td>${e.delFlg == 0 ? '―' : '削除'}</td>
+		<td><s:link href="detail/${e.usrId}">詳細 </s:link></td>
+		<td><s:link href="registerEdit/${e.usrId}">編集</s:link></td>
+		<td><s:link onclick="return confirm('delete OK?');" href="delete/${e.usrId}">削除</s:link></td>
 	</tr>
 </c:forEach>
 
 </table>
 
-<s:link href="create"> create new Object </s:link>
 </body>
 </html>

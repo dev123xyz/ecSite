@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class OrdersDtl extends AbEntity {
@@ -31,4 +34,12 @@ public class OrdersDtl extends AbEntity {
 
     @Column( name = "ORDER_GOODS_UNIT_PRICE" )
     public Long orderGoodsUnitPrice;
+
+    @ManyToOne
+    @JoinColumn( name = "ORDER_ID" )
+    public Orders orders;
+
+    @OneToOne
+    @JoinColumn( name = "ORDER_GOODS_ID" )
+    public Goods goods;
 }

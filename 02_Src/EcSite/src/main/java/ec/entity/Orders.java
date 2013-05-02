@@ -1,6 +1,7 @@
 package ec.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -30,8 +32,11 @@ public class Orders extends AbEntity {
     @Temporal( TemporalType.DATE )
     @Column( name = "ORDER_DATE" )
     public Date orderDate;
-    
+
     @ManyToOne
-    @JoinColumn(name="ORDER_USR_ID")
-    Usr usr;
+    @JoinColumn( name = "ORDER_USR_ID" )
+    public Usr usr;
+
+    @OneToMany( mappedBy = "orders" )
+    public List< OrdersDtl > ordersDtlList;
 }

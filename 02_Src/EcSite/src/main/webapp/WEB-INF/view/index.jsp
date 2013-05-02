@@ -11,7 +11,7 @@
 <h1>ECサイト - サンプル</h1>
 
 <h2>ユーザ用リンク</h2>
-<a href="./usr/registDtl" target="_top">ユーザ登録画面</a>
+<a href="./usr/registAdd" target="_top">ユーザ登録画面</a>
 
 <h2>管理者用リンク</h2>
 <a href="./usr/" target="_top">ユーザ一覧画面</a>

@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ユーザ情報詳細</title>
+    <link rel="stylesheet" type="text/css" href="${f:url('/css/EcSite.css')}"/>
     <link rel="stylesheet" type="text/css" href="${f:url('/css/global.css')}"/>
 </head>
 <body>
@@ -13,41 +14,41 @@
 
 <s:form>
 
-<!-- 詳細情報 -->
-<table class="tablebg">
+<jsp:include page="./detailInc.jsp" flush="true"/>
+
+<h2>ユーザ情報(注文履歴)</h2>
+
+<table class="tablebg" cellpadding='5px' cellspacing="1px" >
+<!-- ユーザ情報(注文履歴)ヘッダ -->
 	<tr>
-		<td>ユーザID</td>
-		<td>
-		    <bean:write name="usrFormItem" property="usrId" />
-		    <html:hidden property="usrFormItem.usrId" />
-		</td>
+		<th>注文ID</th>
+		<th>注文日時</th>
+		<th>注文商品名称</th>
+		<th>注文数量</th>
+		<th>注文単価(円)</th>
 	</tr>
+
+<!-- ユーザ情報(注文履歴)ボディ -->
+<c:forEach var="valOrders" varStatus="sttOrders" items="${usrFormItem.ordersFormItemList}">
 	<tr>
-		<td>ユーザ名称</td>
-		<td>
-		    <html:text property="usrFormItem.usrName" />
-		</td>	
-	</tr>
-	<tr>
-		<td>ユーザPWD</td>
-		<td>
-		    <html:text property="usrFormItem.usrPwd" />
-		</td>	
-	</tr>
-	<tr>
-		<td>削除</td>
-		<td>
-		    ${usrFormItem.delFlg == 0 ? '―' : '削除'}
-		</td>	
-	</tr>
+		<td rowspan="${valOrders.ordersDtlFormItemList.size()}" >${f:h(valOrders.orderId)}</td>
+		<td rowspan="${valOrders.ordersDtlFormItemList.size()}" >${f:h(valOrders.orderDate)}</td>
+		<c:forEach var="valOrdersDtl" varStatus="sttOrdersDtl" items="${valOrders.ordersDtlFormItemList}">
+			<c:if test="${sttOrdersDtl.first == false}" >
+				<tr>
+			</c:if>
+				<td>${f:h(valOrdersDtl.goods.goodsName)}</td>
+				<td>${f:h(valOrdersDtl.orderGoodsNum)}</td>
+				<td>${f:h(valOrdersDtl.orderGoodsUnitPrice)}</td>
+			</tr>
+		</c:forEach>
+	<c:if test="${valOrders.ordersDtlFormItemList.size() == 0}" >
+		</tr>
+	</c:if>
+</c:forEach>
 </table>
 
-<input type="submit" name="update" value="UPDATE" />
 </s:form>
-
-<br/><br/>
-
-<s:link href="/usr/">list page</s:link>
 
 </body>
 </html>

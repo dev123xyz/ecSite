@@ -50,7 +50,10 @@ version="2.4">
         <filter-class>org.seasar.struts.filter.RoutingFilter</filter-class>
         <init-param>
             <param-name>jspDirectAccess</param-name>
-            <param-value>false</param-value>
+            <!--
+                <param-value>false</param-value>
+            -->
+            <param-value>true</param-value>
         </init-param>
     </filter>
     

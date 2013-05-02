@@ -82,7 +82,17 @@ td,th {
 }
 
 .tablebg {
+	background-color: #000000;
+}
+
+.tablebg th {
 	background-color: #EEFF8B;
+	border: 0px;
+}
+
+.tablebg td {
+	background-color: #EEEEEE;
+	border: 0px;
 }
 
 .row_odd {

@@ -11,8 +11,8 @@ public interface IcCmnConst {
     /**
      * 一覧表示件数
      */
-    int LIST_SHOW_NUM = 10;
-    
+    int LIST_SHOW_NUM = 100;
+
     /**
      * 暫定ログインユーザID
      */

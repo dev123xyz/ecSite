@@ -24,9 +24,9 @@ import org.seasar.struts.annotation.Execute;
  * </DL>
  */
 public class IndexAction {
-	
-    @Execute(validator = false)
-	public String index() {
+
+    @Execute( validator = false )
+    public String index() {
         return "index.jsp";
-	}
+    }
 }

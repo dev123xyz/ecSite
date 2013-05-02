@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcatProjectProperties>
+    <rootDir>src/main/webapp/</rootDir>
+    <exportSource>false</exportSource>
+    <reloadable>true</reloadable>
+    <redirectLogger>true</redirectLogger>
+    <updateXml>true</updateXml>
+    <warLocation>C:\Tomcat7\webapps\EcSite.war</warLocation>
+    <extraInfo></extraInfo>
+    <webPath>/EcSite</webPath>
+</tomcatProjectProperties>

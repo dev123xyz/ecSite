@@ -1,0 +1,41 @@
+-- 各トリガは一つずつ実行すること
+
+-- ID設定トリガを作成
+CREATE OR REPLACE TRIGGER TRG_USR_ID BEFORE
+  INSERT
+    ON USR FOR EACH ROW WHEN
+    (
+      -- 新ユーザIDが
+      -- NULLの場合、ユーザIDを作成する
+      -- NULLでない場合、そのユーザIDを設定する
+      NEW.USR_ID IS NULL
+    )
+BEGIN
+  SELECT
+    'USR'
+    || ( COUNT(*) + 1 )
+  INTO
+    :NEW.USR_ID
+  FROM
+    USR;
+END;
+
+
+-- DBMS_CRYPTOパッケージの実行権限の付与
+GRANT EXECUTE ON DBMS_CRYPTO TO ユーザー名;
+
+
+-- ユーザPWD設定トリガを作成
+CREATE OR REPLACE TRIGGER TRG_USR_PWD BEFORE
+  INSERT OR
+  UPDATE ON USR FOR EACH ROW WHEN (
+    -- 新ユーザPWDが
+    -- NULLでない場合、暗号化ユーザPWDを作成する
+    NEW.USR_PWD IS NOT NULL ) BEGIN
+  SELECT DBMS_CRYPTO.ENCRYPT( SRC => UTL_I18N.STRING_TO_RAW( :NEW.USR_PWD, 'AL32UTF8'),
+                              TYP => 8 + 256 + 4096,
+                              KEY => utl_i18n.string_to_raw('PASSWORD**++EcSite++**PASSWORD**', 'AL32UTF8') ) CRYPTO
+  INTO :NEW.USR_PWD
+  FROM DUAL;
+END;
+

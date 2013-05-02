@@ -12,6 +12,7 @@ BEGIN
         USR_ID,
         USR_NAME,
         USR_PWD,
+        INVALID_FLG,
         UPD_USER_ID,
         UPD_DATE
       )
@@ -20,6 +21,7 @@ BEGIN
         'USR' || i,
         'ñºèÃ' || i,
         'PWD' || i,
+        '0',
         'USR' || i,
         CURRENT_DATE
       );

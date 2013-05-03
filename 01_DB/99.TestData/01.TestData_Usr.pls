@@ -3,7 +3,7 @@ DELETE FROM USR;
 
 -- ÉfÅ[É^í«â¡
 BEGIN
-  FOR i IN 1..10000
+  FOR i IN 1..1000
   LOOP
     INSERT
     INTO

@@ -19,7 +19,7 @@ BEGIN
       VALUES
       (
         'USR' || i,
-        'ñºèÃ' || i,
+        'ÉÜÅ[ÉUñºèÃ' || i,
         'PWD' || i,
         '0',
         'USR' || i,

@@ -33,11 +33,6 @@ public class UsrAction extends AbAction< UsrFormItem, Usr > {
     private static final String CLASS = UsrAction.class.getSimpleName();
 
     /**
-     * アクション : 一覧
-     */
-    protected static String ACT_LIST = "/usr/list";
-
-    /**
      * 標準ソート列
      */
     private static String DEF_ORDER_BY_COL = "usrId";
@@ -222,7 +217,7 @@ public class UsrAction extends AbAction< UsrFormItem, Usr > {
     }
 
     /**
-     * 削除画面を実行する.
+     * 削除を実行する.
      * 
      * @return 一覧画面
      */

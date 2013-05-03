@@ -17,6 +17,11 @@ abstract class AbAction< FORM_ITEM extends AbFormItem, ENTITY extends AbEntity >
     protected static final String ACT_HOME = "/";
 
     /**
+     * アクション : 一覧
+     */
+    protected static String ACT_LIST = "/usr/list";
+
+    /**
      * JSP : 一覧
      */
     protected static final String JSP_LIST = "list.jsp";
@@ -56,11 +61,18 @@ abstract class AbAction< FORM_ITEM extends AbFormItem, ENTITY extends AbEntity >
      * @return 詳細画面
      */
     public abstract String detail();
+    
+    /**
+     * 登録(追加)画面を表示する.
+     * 
+     * @return 登録(追加)画面
+     */
+    public abstract String registAdd();
 
     /**
-     * 登録(追加・編集)編集画面を表示する.
+     * 登録(編集)画面を表示する.
      * 
-     * @return 登録(追加・編集)編集画面
+     * @return 登録(編集)画面
      */
     public abstract String registEdt();
 
@@ -79,7 +91,7 @@ abstract class AbAction< FORM_ITEM extends AbFormItem, ENTITY extends AbEntity >
     public abstract String registExe();
 
     /**
-     * 削除画面を実行する.
+     * 削除を実行する.
      * 
      * @return 一覧画面
      */

@@ -23,7 +23,7 @@ public class CmnUtil {
     /**
      * コピーリストを取得する.
      * 
-     * @param pClass クラス
+     * @param pClass コピー先クラス
      * @param pObjList コピー元リスト
      * @return コピー先リスト
      */
@@ -49,7 +49,7 @@ public class CmnUtil {
     /**
      * コピーを取得する.
      * 
-     * @param pClass クラス
+     * @param pClass コピー先クラス
      * @param pObj コピー元
      * @return コピー先
      */
@@ -112,7 +112,7 @@ public class CmnUtil {
      * @param pKeyword キーワード
      * @return 分割後キーワード
      */
-    public static final List< String > splitFuzzyKeyword( String pKeyword ) {
+    private static final List< String > splitFuzzyKeyword( String pKeyword ) {
 
         if ( CmnUtilDebug.DEBUG_FLG == true ) {
             CmnUtilDebug.outputDebug( CLASS + ".splitFuzzyKeyword" );
@@ -139,7 +139,7 @@ public class CmnUtil {
      * @param pKeyword
      * @return
      */
-    public static String escapeFuzzyKeyword( String pKeyword ) {
+    private static final String escapeFuzzyKeyword( String pKeyword ) {
 
         // 特定の文字列を無効化する
         String keyword = pKeyword.replaceAll( "[<>&\"']", "" );
